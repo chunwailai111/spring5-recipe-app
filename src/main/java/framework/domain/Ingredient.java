@@ -1,7 +1,7 @@
 package framework.domain;
 
 import java.math.BigDecimal;
-import java.util.Set;
+
 
 import javax.persistence.*;
 
@@ -17,6 +17,9 @@ public class Ingredient {
     
     @ManyToOne
     private Recipe recipe;
+    
+    @OneToOne(fetch = FetchType.EAGER)  //default is already Eager. 
+    private UnitOfMeasure unitOfMeas;
     
     public Long getId() {
         return Id;
