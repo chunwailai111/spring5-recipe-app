@@ -35,6 +35,9 @@ public class Recipe {
     @OneToMany(cascade = CascadeType.ALL, mappedBy="recipe")
     private Set<Ingredient> ingredients;
     
+    @ManyToMany(mappedBy="recipes")
+    private Set<Category> categories;
+    
     public String getDescription() {
         return description;
     }
@@ -105,5 +108,13 @@ public class Recipe {
     
     public void setImage(byte[] image) {
         this.image = image;
+    }
+    
+    public Set<Category> getCategories() {
+        return categories;
+    }
+    
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 }
