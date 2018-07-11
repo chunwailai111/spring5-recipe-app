@@ -4,6 +4,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import org.springframework.format.annotation.NumberFormat;
+
 
 @Entity
 public class Recipe {
@@ -19,8 +21,9 @@ public class Recipe {
     private String source;
     private String url;
     private String direction;
-    //todo add
-    //private Difficulty difficulty;
+    
+    @Enumerated(value = EnumType.STRING) //instead of using the default Ordinal type
+    private Difficulty difficulty;
     
     @Lob  //BLOB to store image
     private byte[] image;
