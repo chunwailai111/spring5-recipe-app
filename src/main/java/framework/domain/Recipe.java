@@ -1,5 +1,7 @@
 package framework.domain;
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 
@@ -25,6 +27,10 @@ public class Recipe {
     
     @OneToOne(cascade = CascadeType.ALL)
     private Notes notes;
+    
+    //Recipe is the owner in this relationship.  Using the recipe field (via get/set) in Ingredient object to maintain this relationship
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="recipe")
+    private Set<Ingredient> ingredients;
     
     public String getDescription() {
         return description;
