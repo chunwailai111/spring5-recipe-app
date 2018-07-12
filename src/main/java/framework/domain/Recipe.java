@@ -1,5 +1,6 @@
 package framework.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -15,11 +16,13 @@ public class Recipe {
     private Long id;
     
     private String description;
-    private String prepTime;
-    private String cookTime;
+    private int prepTime;
+    private int cookTime;
     private String servings;
     private String source;
     private String url;
+    
+    @Lob   //long string value. more than 255
     private String direction;
     
     @Enumerated(value = EnumType.STRING) //instead of using the default Ordinal type
@@ -33,13 +36,14 @@ public class Recipe {
     
     //Recipe is the owner in this relationship.  Using the recipe field (via get/set) in Ingredient object to maintain this relationship
     @OneToMany(cascade = CascadeType.ALL, mappedBy="recipe")
-    private Set<Ingredient> ingredients;
+    private Set<Ingredient> ingredients = new HashSet<>();
+    
     
     @ManyToMany
     @JoinTable(name = "recipe_category",
         joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns= @JoinColumn(name = "category_id"))
-    private Set<Category> categories;
+    private Set<Category> categories  = new HashSet<>();
     
     public String getDescription() {
         return description;
@@ -49,19 +53,19 @@ public class Recipe {
         this.description = description;
     }
     
-    public String getPrepTime() {
+    public int getPrepTime() {
         return prepTime;
     }
     
-    public void setPrepTime(String prepTime) {
+    public void setPrepTime(int prepTime) {
         this.prepTime = prepTime;
     }
     
-    public String getCookTime() {
+    public int getCookTime() {
         return cookTime;
     }
     
-    public void setCookTime(String cookTime) {
+    public void setCookTime(int cookTime) {
         this.cookTime = cookTime;
     }
     
@@ -119,5 +123,21 @@ public class Recipe {
     
     public void setCategories(Set<Category> categories) {
         this.categories = categories;
+    }
+    
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+    
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+    
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+    
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 }
