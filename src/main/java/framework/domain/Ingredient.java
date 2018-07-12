@@ -28,7 +28,14 @@ public class Ingredient {
         this.unitOfMeas = unitOfMeas;
         this.recipe = recipe;
     }
-    
+
+    public Ingredient(String description, BigDecimal amount, UnitOfMeasure unitOfMeas) {
+        // "ripe avocados", new BigDecimal(2), eachUom, guacRecipe
+        this.description = description;
+        this.amount = amount;
+        this.unitOfMeas = unitOfMeas;
+    }
+
     public Long getId() {
         return Id;
     }
