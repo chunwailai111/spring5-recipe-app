@@ -1,10 +1,14 @@
 package framework.domain;
 
+import lombok.*;
+
 import java.math.BigDecimal;
 
 
 import javax.persistence.*;
 
+@Data
+@EqualsAndHashCode(exclude = {"recipe"})
 @Entity
 public class Ingredient {
     
@@ -20,7 +24,10 @@ public class Ingredient {
     
     @OneToOne(fetch = FetchType.EAGER)  //default is already Eager. 
     private UnitOfMeasure unitOfMeas;
-    
+
+    public Ingredient() {
+    }
+
     public Ingredient(String description, BigDecimal amount, UnitOfMeasure unitOfMeas, Recipe recipe) {
         // "ripe avocados", new BigDecimal(2), eachUom, guacRecipe
         this.description = description;
@@ -42,18 +49,5 @@ public class Ingredient {
     public void setId(Long id) {
         Id = id;
     }
-    public String getDescription() {
-        return description;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    
-    public Recipe getRecipe() {
-        return recipe;
-    }
-    
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
+
 }
