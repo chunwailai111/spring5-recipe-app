@@ -141,6 +141,14 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void addIngredient(Ingredient ingredient) {
         this.ingredients.add(ingredient);
         ingredient.setRecipe(this);
