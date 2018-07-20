@@ -4,6 +4,7 @@ import framework.domain.Recipe;
 import framework.repositories.RecipeRepository;
 import framework.services.RecipeService;
 import framework.services.RecipeServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -17,12 +18,13 @@ import java.util.Set;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+
 public class IndexControllerTest {
 
-    RecipeServiceImpl service;
+    IndexController controller;
 
     @Mock
-    RecipeRepository recipeRepo;
+    RecipeServiceImpl service;
 
     @Mock
     Model model;
@@ -30,19 +32,16 @@ public class IndexControllerTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        service = new RecipeServiceImpl(recipeRepo);
+        controller = new IndexController(service);
     }
 
     @Test
     public void getIndexPage() {
-        Recipe recipe = new Recipe();
-        Set<Recipe> result = new HashSet<>();
-        result.add(recipe);
-        when(service.getRecipes()).thenReturn(result);
+        String pageName = controller.getIndexPage(model);
 
-        Set<Recipe> recipes = service.getRecipes();
+        assertEquals("index",pageName);
+        verify(model, times(1)).addAttribute(eq("recipes"), anySet());
+        verify(service, times(1)).getRecipes();
 
-        assertEquals(1,recipes.size());
-        verify(recipeRepo,times(1)).findAll();
     }
 }
